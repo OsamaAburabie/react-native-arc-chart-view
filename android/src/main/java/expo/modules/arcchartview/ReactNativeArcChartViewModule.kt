@@ -1,19 +1,22 @@
 package expo.modules.arcchartview
 
+import android.annotation.SuppressLint
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
+import androidx.core.content.res.ResourcesCompat
+import androidx.core.net.toUri
+import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import expo.modules.kotlin.modules.Module
 import expo.modules.kotlin.modules.ModuleDefinition
-import java.net.URL
 
 
 class ReactNativeArcChartViewModule : Module() {
     // Each module class must implement the definition function. The definition consists of components
     // that describes the module's functionality and behavior.
     // See https://docs.expo.dev/modules/module-api for more details about available components.
+    @SuppressLint("DiscouragedApi")
     override fun definition() = ModuleDefinition {
         // Sets the name of the module that JavaScript code will use to refer to the module. Takes a string as an argument.
         // Can be inferred from module's class name, but it's recommended to set it explicitly for clarity.
@@ -76,12 +79,39 @@ class ReactNativeArcChartViewModule : Module() {
             }
 
             Prop("sectionsIcons") { view: ReactNativeArcChartView, prop: List<String> ->
-                val icons = prop.map { base64 ->
-                    val bytes = android.util.Base64.decode(base64, android.util.Base64.DEFAULT)
-                    BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+                val icons = mutableListOf<Bitmap?>()
+
+
+
+                for (imageUrl in prop) {
+                    val target = object : CustomTarget<Bitmap>() {
+                        override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                            icons.add(resource)
+
+                            if (icons.size == prop.size) {
+                                view.arcChartView.setSectionIcons(icons)
+                            }
+                        }
+
+                        override fun onLoadCleared(placeholder: Drawable?) {
+                            // Handle onLoadCleared if needed
+                        }
+                    }
+
+                    if (imageUrl.startsWith("http")) {
+                        Glide.with(view.context)
+                            .asBitmap()
+                            .load(imageUrl.toUri())
+                            .into(target)
+                    } else {
+                        val id = ResourcesCompat.getDrawable(view.resources, view.resources.getIdentifier(imageUrl, "drawable", view.context.packageName), null)
+                        Glide.with(view.context)
+                            .asBitmap()
+                            .load(id)
+                            .into(target)
+                    }
                 }
 
-                view.arcChartView.setSectionIcons(icons as MutableList<Bitmap?>)
             }
         }
     }
