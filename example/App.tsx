@@ -2,45 +2,36 @@ import { useEffect, useState } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 
 import { ReactNativeArcChartView } from "react-native-arc-chart-view";
-//@ts-ignore
-import ImgToBase64 from "react-native-image-base64";
 
-const images = [
-  "https://cdn-icons-png.flaticon.com/512/5496/5496335.png",
-  "https://upload.wikimedia.org/wikipedia/commons/thumb/8/83/Circle-icons-tools.svg/1200px-Circle-icons-tools.svg.png",
-];
+const images = [require("./assets/fix.png"), require("./assets/bin.png")];
 
-const convertImageToBase64 = async (url: string) => {
-  const base64 = await ImgToBase64.getBase64String(url);
-  return base64;
-};
+const imagesUrl = images.map((image) => {
+  let originalUrl = Image.resolveAssetSource(image).uri;
+
+  // New domain
+  let newDomain = "http://192.168.1.95:8081/";
+
+  // Parse the original URL to extract the domain
+  let originalDomain = originalUrl?.match(
+    /^https?:\/\/([^/?#]+)(?:[/?#]|$)/i
+  )?.[0] as string;
+
+  // Replace the domain in the URL with the new domain
+  let updatedUrl = originalUrl.replace(originalDomain, newDomain);
+
+  return updatedUrl;
+});
 
 export default function App() {
-  const [base64, setBase64] = useState<string[]>([]);
-
-  useEffect(() => {
-    const fetchBase64 = async () => {
-      const base64 = await Promise.all(
-        images.map(async (url) => {
-          const base64 = await convertImageToBase64(url);
-          return base64;
-        })
-      );
-      setBase64(base64);
-    };
-
-    fetchBase64();
-  }, []);
-
   return (
     <View style={styles.container}>
       <ReactNativeArcChartView
-        sectionsCount={7}
+        sectionsCount={2}
         iconSize={60}
         sectionsSpace={5}
         linesCount={10}
         midStartExtraOffset={10}
-        sectionsIcons={base64}
+        sectionsIcons={imagesUrl}
         style={{
           height: 300,
           aspectRatio: 1,
