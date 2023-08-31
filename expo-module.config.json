@@ -1,0 +1,9 @@
+{
+  "platforms": ["ios", "android", "web"],
+  "ios": {
+    "modules": ["ReactNativeArcChartViewModule"]
+  },
+  "android": {
+    "modules": ["expo.modules.arcchartview.ReactNativeArcChartViewModule"]
+  }
+}

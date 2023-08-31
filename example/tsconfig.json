@@ -1,0 +1,10 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    "paths": {
+      "react-native-arc-chart-view": ["../src/index"],
+      "react-native-arc-chart-view/*": ["../src/*"]
+    }
+  }
+}
