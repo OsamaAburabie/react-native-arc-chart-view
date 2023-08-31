@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'maven-publish'
+apply plugin: 'kotlin-kapt'
 
 group = 'expo.modules.arcchartview'
 version = '0.1.0'
@@ -86,4 +87,9 @@ repositories {
 dependencies {
   implementation project(':expo-modules-core')
   implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${getKotlinVersion()}"
+
+  implementation 'com.github.qoqa:glide-svg:4.0.2'
+  kapt 'com.github.bumptech.glide:compiler:4.14.2'
+
+  implementation 'com.github.imaNNeoFighT:ArcChartView:1.0.3.1'
 }
