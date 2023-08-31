@@ -2,14 +2,15 @@ package expo.modules.arcchartview
 
 import android.annotation.SuppressLint
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.drawable.Drawable
-import androidx.core.content.res.ResourcesCompat
 import androidx.core.net.toUri
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import expo.modules.kotlin.modules.Module
 import expo.modules.kotlin.modules.ModuleDefinition
+import java.net.URL
 
 
 class ReactNativeArcChartViewModule : Module() {
@@ -104,15 +105,18 @@ class ReactNativeArcChartViewModule : Module() {
                             .load(imageUrl.toUri())
                             .into(target)
                     } else {
-                        val id = ResourcesCompat.getDrawable(view.resources, view.resources.getIdentifier(imageUrl, "drawable", view.context.packageName), null)
+                        val id = view.context.resources.getIdentifier(imageUrl, "drawable", view.context.packageName)
                         Glide.with(view.context)
                             .asBitmap()
                             .load(id)
                             .into(target)
                     }
+
                 }
 
             }
+
+
         }
     }
 }
