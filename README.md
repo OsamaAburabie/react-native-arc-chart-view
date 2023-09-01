@@ -1,35 +1,56 @@
 # react-native-arc-chart-view
 
-Arc chat component built for react native
+Arc chart component built for react native based on [ArcChartView](https://github.com/imaNNeo/ArcChartView)
 
-# API documentation
+<img src="./repo_files/images/sample_icons.png" width="200">
 
-- [Documentation for the main branch](https://github.com/expo/expo/blob/main/docs/pages/versions/unversioned/sdk/react-native-arc-chart-view.md)
-- [Documentation for the latest stable release](https://docs.expo.dev/versions/latest/sdk/react-native-arc-chart-view/)
+## Installation
 
-# Installation in managed Expo projects
-
-For [managed](https://docs.expo.dev/archive/managed-vs-bare/) Expo projects, please follow the installation instructions in the [API documentation for the latest stable release](#api-documentation). If you follow the link and there is no documentation available then this library is not yet usable within managed projects &mdash; it is likely to be included in an upcoming Expo SDK release.
-
-# Installation in bare React Native projects
-
-For bare React Native projects, you must ensure that you have [installed and configured the `expo` package](https://docs.expo.dev/bare/installing-expo-modules/) before continuing.
-
-### Add the package to your npm dependencies
-
-```
-npm install react-native-arc-chart-view
+```sh
+yarn add react-native-arc-chart-view
 ```
 
-### Configure for iOS
+## Usage
 
-Run `npx pod-install` after installing the npm package.
+```tsx
+import { ReactNativeArcChartView } from "react-native-arc-chart-view";
 
+<ReactNativeArcChartView
+  sectionsCount={6}
+  iconSize={60}
+  sectionsSpace={5}
+  linesCount={10}
+  midStartExtraOffset={10}
+  sectionsIcons={images}
+  onFinishedSettingSectionValue={({
+    nativeEvent: { sectionPos, sectionValue },
+  }) => {
+    console.log(sectionPos, sectionValue);
+  }}
+/>;
+```
 
-### Configure for Android
+## Props
 
+you can customize StepBarView, all of this attributes can change via xml or code (runtime)
 
+|           Attribute           |                   Type                    |                                Description                                 |
+| :---------------------------: | :---------------------------------------: | :------------------------------------------------------------------------: |
+|          linesCount           |                  number                   |       lines count of chart (i mean arc lines), default value is `10`       |
+|          linesSpace           |                  number                   |             lines space (lines margin), default value is `4dp`             |
+|          linesWidth           |                  number                   |                    lines width , default value is `6dp`                    |
+|         sectionsCount         |                  number                   |                   sections count , default value is `8`                    |
+|         sectionsSpace         |                  number                   |         sections space (sections margin) , default value is `4dp`          |
+|      midStartExtraOffset      |                  number                   |             center extra offest size, default value is `16dp`              |
+|           iconSize            |                  number                   |                  the icons size, default value is `32dp`                   |
+|         sectionsIcons         |                 string[]                  |                 array of the icons for the chart sections                  |
+|        sectionsValues         |                 number[]                  |                 array of the values for the chart sections                 |
+|  onStartSettingSectionValue   | {sectionPos: number, sectionValue:number} | a callback to get the value of the changing section on start of the action |
+| onContinueSettingSectionValue | {sectionPos: number, sectionValue:number} |     a callback to get the value of the changing section on drag action     |
+| onFinishedSettingSectionValue | {sectionPos: number, sectionValue:number} |       a callback to get the value of the changing section on finish        |
 
-# Contributing
+## TODO
 
-Contributions are very welcome! Please refer to guidelines described in the [contributing guide]( https://github.com/expo/expo#contributing).
+- [x] Android support
+- [ ] iOS support
+- [ ] Web support
