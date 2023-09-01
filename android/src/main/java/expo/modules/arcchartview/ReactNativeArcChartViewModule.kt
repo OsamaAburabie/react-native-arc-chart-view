@@ -51,6 +51,9 @@ class ReactNativeArcChartViewModule : Module() {
         // Enables the module to be used as a native view. Definition components that are accepted as part of
         // the view definition: Prop, Events.
         View(ReactNativeArcChartView::class) {
+
+            Events("onStartSettingSectionValue", "onContinueSettingSectionValue", "onFinishedSettingSectionValue")
+
             Prop("sectionsCount") { view: ReactNativeArcChartView, prop: Int ->
                 view.arcChartView.sectionsCount = prop
             }
@@ -81,8 +84,6 @@ class ReactNativeArcChartViewModule : Module() {
 
             Prop("sectionsIcons") { view: ReactNativeArcChartView, prop: List<String> ->
                 val icons = mutableListOf<Bitmap?>()
-
-
 
                 for (imageUrl in prop) {
                     val target = object : CustomTarget<Bitmap>() {
@@ -116,6 +117,17 @@ class ReactNativeArcChartViewModule : Module() {
 
             }
 
+            Prop("sectionsValues") { view: ReactNativeArcChartView, prop: List<Int> ->
+                for (i in prop.indices) {
+                    view.arcChartView.setSectionValue(i, prop[i])
+                }
+            }
+
+            OnViewDidUpdateProps { view: ReactNativeArcChartView ->
+                view.arcChartView.invalidate()
+            }
+
+            On
 
         }
     }

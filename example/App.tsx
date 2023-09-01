@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
 
 import { ReactNativeArcChartView } from "react-native-arc-chart-view";
+import Slider from "@react-native-community/slider";
 
 const images = [
   require("./assets/fix.png"),
@@ -9,25 +10,15 @@ const images = [
   require("./assets/fan.png"),
   require("./assets/fan2.png"),
 ];
-
-const imagesUrl = images.map((image) => {
-  let originalUrl = Image.resolveAssetSource(image).uri;
-
-  // New domain
-  let newDomain = "http://192.168.1.95:8081/";
-
-  // Parse the original URL to extract the domain
-  let originalDomain = originalUrl?.match(
-    /^https?:\/\/([^/?#]+)(?:[/?#]|$)/i
-  )?.[0] as string;
-
-  // Replace the domain in the URL with the new domain
-  let updatedUrl = originalUrl.replace(originalDomain, newDomain);
-
-  return updatedUrl;
-});
+const initial = [10, 10, 10, 3, 10, 4, 6];
 
 export default function App() {
+  const [sectionValues, setSectionValues] = useState<number[]>([]);
+
+  useEffect(() => {
+    setSectionValues(initial);
+  }, []);
+
   return (
     <View style={styles.container}>
       <ReactNativeArcChartView
@@ -36,11 +27,55 @@ export default function App() {
         sectionsSpace={5}
         linesCount={10}
         midStartExtraOffset={10}
-        sectionsIcons={imagesUrl}
+        sectionsIcons={images}
+        sectionsValues={sectionValues}
         style={{
           height: 300,
           aspectRatio: 1,
         }}
+        onContinueSettingSectionValue={({
+          nativeEvent: { sectionPos, sectionValue },
+        }) => {
+          setSectionValues((prev) => {
+            return prev.map((value, index) => {
+              if (index === sectionPos) {
+                return sectionValue;
+              }
+              return value;
+            });
+          });
+        }}
+        onFinishedSettingSectionValue={({
+          nativeEvent: { sectionPos, sectionValue },
+        }) => {
+          setSectionValues((prev) => {
+            return prev.map((value, index) => {
+              if (index === sectionPos) {
+                return sectionValue;
+              }
+              return value;
+            });
+          });
+        }}
+      />
+
+      <Slider
+        style={{ width: 200, height: 40 }}
+        minimumValue={0}
+        maximumValue={10}
+        value={sectionValues[0]}
+        onValueChange={(sliderValue) => {
+          setSectionValues((prev) => {
+            return prev.map((value, index) => {
+              if (index === 0) {
+                return Math.round(sliderValue);
+              }
+              return value;
+            });
+          });
+        }}
+        minimumTrackTintColor="#FFFFFF"
+        maximumTrackTintColor="#000000"
       />
     </View>
   );
