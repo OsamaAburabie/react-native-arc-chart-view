@@ -36,8 +36,6 @@ import { ReactNativeArcChartView } from "react-native-arc-chart-view";
 
 ## Props
 
-you can customize StepBarView, all of this attributes can change via xml or code (runtime)
-
 |           Attribute           |                   Type                    |                                Description                                 |
 | :---------------------------: | :---------------------------------------: | :------------------------------------------------------------------------: |
 |          linesCount           |                  number                   |       lines count of chart (i mean arc lines), default value is `10`       |
