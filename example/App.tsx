@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 import { ReactNativeArcChartView } from "react-native-arc-chart-view";
 import Slider from "@react-native-community/slider";
@@ -29,10 +29,6 @@ export default function App() {
         midStartExtraOffset={10}
         sectionsIcons={images}
         sectionsValues={sectionValues}
-        style={{
-          height: 300,
-          aspectRatio: 1,
-        }}
         onContinueSettingSectionValue={({
           nativeEvent: { sectionPos, sectionValue },
         }) => {
@@ -59,7 +55,7 @@ export default function App() {
         }}
       />
 
-      <Slider
+      {/* <Slider
         style={{ width: 200, height: 40 }}
         minimumValue={0}
         maximumValue={10}
@@ -76,7 +72,7 @@ export default function App() {
         }}
         minimumTrackTintColor="#FFFFFF"
         maximumTrackTintColor="#000000"
-      />
+      /> */}
     </View>
   );
 }
