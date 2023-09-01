@@ -1,6 +1,6 @@
 # react-native-arc-chart-view
 
-Arc chat component built for react native
+Arc chart component built for react native
 
 # API documentation
 
