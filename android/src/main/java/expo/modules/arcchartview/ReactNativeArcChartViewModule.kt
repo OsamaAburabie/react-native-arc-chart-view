@@ -127,8 +127,6 @@ class ReactNativeArcChartViewModule : Module() {
                 view.arcChartView.invalidate()
             }
 
-            On
-
         }
     }
 }

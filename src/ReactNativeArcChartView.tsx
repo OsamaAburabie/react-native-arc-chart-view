@@ -37,7 +37,18 @@ const ReactNativeArcChartView = React.forwardRef<
     return updatedUrl;
   });
 
-  return <NativeView ref={ref} {...props} sectionsIcons={formattedImages} />;
+  return (
+    <NativeView
+      ref={ref}
+      {...props}
+      //@ts-ignore
+      style={{
+        height: 300,
+        aspectRatio: 1,
+      }}
+      sectionsIcons={formattedImages}
+    />
+  );
 });
 
 export default ReactNativeArcChartView;
