@@ -4,10 +4,14 @@ Arc chart component built for react native based on [ArcChartView](https://githu
 
 <img src="./repo_files/images/sample_icons.png" width="200">
 
-## Installation
+## Installation (Expo only)
 
 ```sh
 yarn add react-native-arc-chart-view
+```
+
+```sh
+npx expo prebuild
 ```
 
 ## Usage
