@@ -1,7 +1,7 @@
 {
   "name": "react-native-arc-chart-view",
   "version": "0.1.0",
-  "description": "Arc chat component built for react native",
+  "description": "Arc chart component built for react native",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "scripts": {

@@ -1,11 +1,9 @@
-import * as React from 'react';
+import * as React from "react";
 
-import { ReactNativeArcChartViewProps } from './ReactNativeArcChartView.types';
+import { ReactNativeArcChartViewProps } from "./ReactNativeArcChartView.types";
 
-export default function ReactNativeArcChartView(props: ReactNativeArcChartViewProps) {
-  return (
-    <div>
-      <span>{props.name}</span>
-    </div>
-  );
+export default function ReactNativeArcChartView(
+  props: ReactNativeArcChartViewProps
+) {
+  return <div></div>;
 }
